@@ -1,0 +1,45 @@
+---
+title: Getting on the internet
+date: '2022-02-17'
+tags: ['ipv4', 'OSI', 'l4', 'foundation']
+draft: false
+summary: setting up a private home network with VLAN & Subnetworking, a student’s perspective
+images: [/static/images/a1.png', '/static/images/a2.png']
+layout: PostLayout
+canonicalUrl: https://next-js-blog-nine-dusky.vercel.app/blog/foundations-ipv4-setuphomenetworkpt1
+---
+
+# Setting up a private home network: VLAN & Subnetworking, a student’s perspective
+
+### Preface
+
+As a student of an immense topic such as the internet, one may have difficulty finding where to beging their studies. As a frequent student myself, I often find "jumping in" the best option, and with that in mind, have decided to detail my initial
+steps in setting up a private home network. I will proceed to work through the steps, reflecting along the way to frame the the process as an educational exercise.
+
+## What is having the internet?
+
+If you want to listen to the radio, you need a receiever. If you want to attend a play, you need a ticket. If you want to "internet?" Well, let's just say it is not so simple.
+
+So, what is the ticket to the internet? One might start with an "access point" that is a unique 32-bit IPv4 address, of the public variety, leased to you by an internet service provider (ISP). This is [layer one (L1)](https://en.wikipedia.org/wiki/OSI_model#Layer_architecture) item to have a unique IPv4 or IPv6 address, on the public internet, necessary to operate a host node on the network.
+
+The [Internet protocol suite (TCP/IP Model](https://www.wikiwand.com/en/Internet_protocol_suite) (Transmission Control Protocol/ Internet Protocol) is the core component of the internet, and was one of the earliest technologies created when computer networking projects were being undertaken by government and acadeamia. It was initially developed by the Defense Advanced Research Projects Agency ([DARPA](https://www.wikiwand.com/en/DARPA)) in the late 1960s, and is still a utilized protocol. In your studies, you will find that these protocols are responsible for identifying, sending and receiving packets. But before that, let us review the state modern internet standards.
+
+Today, the technical standards underlying the internet protocol suite are maintained by a division of the United Nations: the [Internet Engineering Task Force](https://www.wikiwand.com/en/Internet_Engineering_Task_Force) (IETF). Another important standard to know is the [OSI model](https://www.wikiwand.com/en/OSI_model), a "reccomendation standard" that is theoretical, but more comprehensive than IPv4 as it serves as a reference framework for buiilding networking systems in general.
+
+As a student, it is helpful to learn this generalized version of computer networking, before moving to the gritty, real world details of IPv4/6 implementations. Conveniently, the International Organization for Standardization (ISO) exists as the definitive theoretical, seven-layer, networking model called the [Open Systems Interconnection (OSI) reference model](https://www.wikiwand.com/en/OSI_model#).
+
+![Their published ITU-T Recommendation: “X.200: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model” (11/88) discusses designing a network system that is separated (by function) into groups, named “layers,” layer 1 is being the lowest layer](/static/images/a1.png)
+
+Their published ITU-T Recommendation: “X.200: Information technology - Open Systems Interconnection - Basic Reference Model: The basic model” (11/88) discusses designing a network system that is separated (per function or utility) into groups, named “layers,” layer 1 being the lowest layer
+
+![The International Telecommunication Union (ITU) is the United Nations specialized agency for information and communication technologies – ICTs. Founded 1865 by [Napoleon III](https://www.wikiwand.com/en/Napoleon_III) for telegraph. They have over 4000 recommendations published. OSI Reference Model linked [here](https://www.itu.int/rec/T-REC-X/en#:~:text=virtual%20circuits%20(PVCs)%20%C2%A0-,X.200,-Information%20technology%20%2D%20Open). Regarding the naming schema: ITU-T issues Recommendations that have names like [X.500](https://www.wikiwand.com/en/X.500), where X is the series and 500 is an identifying number.](/static/images/a2.png)
+
+The International Telecommunication Union (ITU) is the United Nations specialized agency for information and communication technologies – ICTs. Founded 1865 by [Napoleon III](https://www.wikiwand.com/en/Napoleon_III) for telegraph technology standardization. Present day, there are over 4000 recommendations published. OSI Reference Model linked [here](<https://www.itu.int/rec/T-REC-X/en#:~:text=virtual%20circuits%20(PVCs)%20%C2%A0-,X.200,-Information%20technology%20%2D%20Open>). Regarding the naming schema: ITU-T issues Recommendations that have names like [X.500](https://www.wikiwand.com/en/X.500), where X is the series and 500 is an identifying number.
+
+Referencing the above model, your public IP address exists in layer 3, the Network layer. In practice, the modern internet utilizes TCP/IP’s internet layer. Your IP will be utilized to identify yourself and other computers in network. you are purchasing access to the internet through an ISP as a service to send and receive data through the internetworked mesh that is the ‘internet’ further discussion is not pertinent, suffice to know that telecommunications companies run fiber optic cable to coordinated web traffic to host/server, utilizing a specialized L3 protocol BGP. A tertiary concept you may have heard about is “[edge computing](https://www.wikiwand.com/en/Edge_computing#).” Per Wikipedia, “The origins of edge computing lie in [content distributed networks](https://www.wikiwand.com/en/Content_delivery_network) that were created in the late 1990s to serve web and video content from edge [servers](<https://www.wikiwand.com/en/Server_(computing)>) that were deployed close to users.
+
+Returning to our public IPv4 address, we may realize that one address is not enough for the many devices and users that exists in our household. That would be correct, thus our address must be shared somehow. A router will be introduced to solves this problem, and some others. As an aside, in networking there are often multiple types of the same thing. I think of this as a reminder of the iterative nature of the system. Something that has many meanings based on context is ‘address.’ I think this is because of the linked nature of the internet, where the system is divided in two, so that there are a link of addresses, with a packet jumping to the next point, and verifying itself, again and again, along the way.
+
+Indeed a packet does somewhat work this way, by coming apart to verify it’s address, and then replace it’s address with new one’s: a new ‘source address’ and a new ‘destination address’ that was given to it by a ‘traffic cop protocol’ that is running on L3, the [Network Layer](https://www.wikiwand.com/en/Network_layer) of OSI’s model. The TCIP/IP protocol mentioned earlier, is only one of many L3 “Network” protocols that go about executing OSI’s dictum: the relaying of [packets](<https://www.wikiwand.com/en/Packet_(information_technology)>) from one [network segment](https://www.wikiwand.com/en/Network_segment) to another by [nodes](<https://www.wikiwand.com/en/Node_(networking)>) in a [computer network](https://www.wikiwand.com/en/Computer_network) via [packet forwarding](https://www.wikiwand.com/en/Packet_forwarding). Including [routing](https://www.wikiwand.com/en/Routing) packets through intermediate [routers.](<https://www.wikiwand.com/en/Router_(computing)>) [[2]]. A network trace route command can be used to readback information concerning the packet's travel, eg, how many “hops” (trips between routers) a packet has made.
+
+These “Network” protocols are algorithmic logic that are run as emedded into ios firmware utilizing hardware, or can be more software implemented on computer hardware. For example, three routing protocols are supported by the networking BSD OS pfSense.
